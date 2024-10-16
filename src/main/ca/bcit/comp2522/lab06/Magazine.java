@@ -1,22 +1,22 @@
 package ca.bcit.comp2522.lab06;
 
 /**
- * Represents a comic book literature piece.
+ * Represents a magazine literature piece.
  *
  * @author Ole Lammers & Tianyou Xie
  * @version 1.0
  */
-public class ComicBook extends Literature {
+public class Magazine extends Literature {
 
     private final String title;
 
     /**
-     * Creates a new comic book.
+     * Creates a new magazine.
      *
      * @param title the title
      */
-    public ComicBook(final String title) {
-        ComicBook.validateTitle(title);
+    public Magazine(final String title) {
+        Magazine.validateTitle(title);
 
         this.title = title;
     }
