@@ -1,5 +1,6 @@
 package ca.bcit.comp2522.lab06;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,21 +12,7 @@ import java.util.List;
  */
 public class BookStore<T extends Literature> {
 
-    private final String name;
-    private final List<T> items;
-
-    /**
-     * Creates a new bookstore.
-     *
-     * @param name  the name of the bookstore
-     * @param items the initial pieces of literature
-     */
-    public BookStore(final String name, final List<T> items) {
-        BookStore.validateName(name);
-
-        this.name = name;
-        this.items = items;
-    }
+    private final List<T> items = new ArrayList<>();
 
     /**
      * Entry point for the bookstore class.
@@ -33,18 +20,13 @@ public class BookStore<T extends Literature> {
      * @param args the command line arguments, unused
      */
     public static void main(final String[] args) {
-        
-    }
+        BookStore<Literature> store = new BookStore<>();
 
-    /**
-     * Validates the given name to ensure it is within limits.
-     *
-     * @param name the name to validate
-     */
-    private static void validateName(final String name) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("A bookstore must have a name.");
-        }
+        store.addItem(new Novel("War and Peace", "Leo Tolstoy", 1867));
+        store.addItem(new ComicBook("Spider-Man"));
+        store.addItem(new Magazine("National Geographic"));
+
+        store.printItems();
     }
 
     /**
@@ -67,12 +49,48 @@ public class BookStore<T extends Literature> {
     }
 
     /**
-     * Returns the name of this bookstore.
-     *
-     * @return the name
+     * Represents information about a bookstore.
      */
-    public final String getName() {
-        return this.name;
+    public static final class BookstoreInfo {
+
+        /**
+         * Prints out a formatted information message containing the specified
+         * bookstore details.
+         *
+         * @param storeName the name of the bookstore
+         * @param itemCount the literature piece count of the bookstore
+         */
+        public void displayInfo(final String storeName,
+                                final int itemCount) {
+            System.out.println(
+                    "BookStore: " + storeName + ", Items: " + itemCount);
+
+        }
+
+    }
+
+    /**
+     * Enables statistical analysis of literature pieces and novels within a
+     * bookstore.
+     */
+    public final class NovelStatistics {
+
+        /**
+         * Computes the average title length of all literature pieces within
+         * this bookstore.
+         *
+         * @return the average title character length
+         */
+        public double averageTitleLength() {
+            int totalLength = 0;
+
+            for (final Literature lit : BookStore.this.items) {
+                totalLength += lit.getTitle().length();
+            }
+
+            return (double) totalLength / BookStore.this.items.size();
+        }
+
     }
 
 }
