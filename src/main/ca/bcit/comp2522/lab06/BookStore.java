@@ -2,6 +2,7 @@ package ca.bcit.comp2522.lab06;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -28,6 +29,13 @@ public class BookStore<T extends Literature> {
         store.addItem(new Magazine("National Geographic"));
 
         store.printItems();
+
+        store.items.sort(new Comparator<>() {
+            @Override
+            public int compare(final Literature a, final Literature b) {
+                return a.getTitle().compareTo(b.getTitle());
+            }
+        });
     }
 
     /**
@@ -37,6 +45,26 @@ public class BookStore<T extends Literature> {
      */
     public final void addItem(T item) {
         this.items.add(item);
+    }
+
+    /**
+     * Adds all of the {@link Novel} literature pieces in this bookstore to the
+     * specified list.
+     *
+     * @param collection the list in which to insert all the novels
+     */
+    public final void addNovelsToCollection(List<? super Novel> collection) {
+        for (final Literature lit : this.items) {
+            final Novel novel;
+
+            if (!(lit instanceof Novel)) {
+                continue;
+            }
+
+            novel = (Novel) lit;
+
+            collection.add(novel);
+        }
     }
 
     /**
@@ -65,6 +93,16 @@ public class BookStore<T extends Literature> {
      * @param filterTitle the title to filter by
      */
     public final void printBookTitle(final String filterTitle) {
+        this.items.forEach(lit -> {
+            final String title;
+
+            title = lit.getTitle();
+
+            if (title.contains(filterTitle)) {
+                System.out.println();
+            }
+        });
+
         for (final T lit : this.items) {
             final String title;
             title = lit.getTitle();
@@ -81,15 +119,14 @@ public class BookStore<T extends Literature> {
      * Prints the titles of all books in this book store in alphabetical order.
      */
     public final void printTitlesInAlphaOrder() {
-        Collections.sort(this.items);
-
-        for (final T lit : this.items) {
-            System.out.println(lit.getTitle());
-        }
+        Collections.sort(
+                this.items); // TODO you cannot use a method reference here
+        //this.items.sort(String::compareToIgnoreCase())
+        this.items.forEach(lit -> System.out.println(lit.getTitle()));
     }
 
     /**
-     * Returns the longest title in of all the literature piees in this book
+     * Returns the longest title in of all the literature pieces in this book
      * store.
      *
      * @return the longest title, or null if there are no books

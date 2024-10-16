@@ -22,11 +22,11 @@ public abstract class Literature implements Comparable<Literature> {
      *
      * @param other the literature piece to compare against
      * @return the comparison result of the two titles
-     * @see String#compareTo(String)
+     * @see String#compareToIgnoreCase(String)
      */
     @Override
     public final int compareTo(final Literature other) {
-        return this.getTitle().compareTo(other.getTitle());
+        return this.getTitle().compareToIgnoreCase(other.getTitle());
     }
 
 }
