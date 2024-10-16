@@ -30,12 +30,16 @@ public class BookStore<T extends Literature> {
 
         store.printItems();
 
+        System.out.println("\nAnonymous sorting...\n");
+
         store.items.sort(new Comparator<>() {
             @Override
             public int compare(final Literature a, final Literature b) {
                 return a.getTitle().compareTo(b.getTitle());
             }
         });
+
+        store.printItems();
     }
 
     /**
