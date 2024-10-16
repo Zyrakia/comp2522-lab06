@@ -1,7 +1,7 @@
 package ca.bcit.comp2522.lab06;
 
 /**
- * Represents a novel book.
+ * Represents a novel literature piece.
  *
  * @author Ole Lammers & Tianyou Xie
  * @version 1.0
@@ -166,12 +166,7 @@ public class Novel extends Literature {
         return String.format("\"%s\" written in %d by %s.", this.getTitle(),
                              this.getYearPublished(), this.getAuthorName());
     }
-
-    /**
-     * Returns the title of this novel.
-     *
-     * @return the title
-     */
+    
     @Override
     public final String getTitle() {
         return this.title;
