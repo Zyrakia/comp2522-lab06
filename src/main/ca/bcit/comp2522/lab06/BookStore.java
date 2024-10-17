@@ -1,16 +1,15 @@
 package ca.bcit.comp2522.lab06;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
  * Represents a store that holds a bunch of literature pieces.
  *
- * @param <T> the type of literature this bookstore keeps
  * @author Ole Lammers & Tianyou Xie
  * @version 1.0
+ * @param <T> the type of literature this bookstore keeps
  */
 public class BookStore<T extends Literature> {
 
@@ -64,7 +63,6 @@ public class BookStore<T extends Literature> {
             if (!(lit instanceof Novel)) {
                 continue;
             }
-
             novel = (Novel) lit;
 
             collection.add(novel);
@@ -123,9 +121,8 @@ public class BookStore<T extends Literature> {
      * Prints the titles of all books in this book store in alphabetical order.
      */
     public final void printTitlesInAlphaOrder() {
-        Collections.sort(
-                this.items); // TODO you cannot use a method reference here
-        //this.items.sort(String::compareToIgnoreCase())
+        this.items.sort(Comparator.comparing(Literature::getTitle,
+                                             String::compareToIgnoreCase));
         this.items.forEach(lit -> System.out.println(lit.getTitle()));
     }
 
